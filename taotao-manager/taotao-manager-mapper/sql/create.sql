@@ -1,0 +1,2 @@
+CREATE SCHEMA IF NOT EXISTS `taotao` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin ;
+USE `taotao` ;

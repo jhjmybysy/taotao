@@ -1,0 +1,41 @@
+package com.taotao.controller;
+
+import java.io.File;
+import java.io.FileInputStream;
+
+import org.apache.commons.net.ftp.FTPClient;
+import org.junit.Test;
+
+import com.taotao.common.utils.FtpUtil;
+
+public class FTPClientTest {
+
+	@Test
+	public void testFtp() throws Exception {
+		// 1銆佽繛鎺tp鏈嶅姟鍣�
+		FTPClient ftpClient = new FTPClient();
+		ftpClient.connect("10.0.0.100", 21);
+		// 2銆佺櫥褰昮tp鏈嶅姟鍣�
+		ftpClient.login("ftpuser", "ftpuser");
+		// 3銆佽鍙栨湰鍦版枃浠�
+		FileInputStream inputStream = new FileInputStream(new File("C:\\Users\\sino\\Desktop\\濡備綍璁捐涓�涓湇鍔�.PNG"));
+		// 4銆佷笂浼犳枃浠�
+		// 1锛夋寚瀹氫笂浼犵洰褰�
+		ftpClient.changeWorkingDirectory("/home/ftpuser/www/images");
+		// 2锛夋寚瀹氭枃浠剁被鍨�
+		ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
+		// 绗竴涓弬鏁帮細鏂囦欢鍦ㄨ繙绋嬫湇鍔″櫒鐨勫悕绉�
+		// 绗簩涓弬鏁帮細鏂囦欢娴�
+		ftpClient.storeFile("hello.jpg", inputStream);
+		// 5銆侀��鍑虹櫥褰�
+		ftpClient.logout();
+	}
+
+	@Test
+	public void testFtpUtils() throws Exception {
+		FileInputStream inputStream = new FileInputStream(new File("C:\\Users\\sino\\Desktop\\濡備綍璁捐涓�涓湇鍔�.PNG"));
+		FtpUtil.uploadFile("10.0.0.100", 21, "ftpuser", "ftpuser", "/home/ftpuser/www/images", "20171002",
+				"hallo.jpg", inputStream);
+	}
+
+}
